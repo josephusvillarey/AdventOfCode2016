@@ -16,8 +16,7 @@ public fun runDay5() {
 
         var success = false
 
-        val forHash = puzzleInput + index
-        val hashed = HASH.md5(forHash)
+        val hashed = HASH.md5(puzzleInput + index)
 
         if (hashed.startsWith("00000")) try {
             val i = Integer.parseInt(hashed.get(5) + "")
