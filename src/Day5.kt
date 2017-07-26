@@ -6,7 +6,7 @@ fun main(args: Array<String>) {
 
 public fun runDay5() {
 
-    val passwordBuilder = CharArray(8, { ' ' })
+    val passwordBuilder = CharArray(8) { ' ' }
 
     val puzzleInput = "ojvtpuvg"
 //    val puzzleInput = "abc"
