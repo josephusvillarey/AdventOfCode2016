@@ -1,4 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool
 import java.io.File
 import java.util.regex.Pattern
 
@@ -20,14 +19,26 @@ public fun runDay9() {
     var markerLength = 0
     var markerRepeat = 0
 
-    for (i in 0..text.length) {
+    var i = 0
+
+    while (i < text.length) {
         buffer += text[i]
         if (isMarker(buffer)) {
-            markerLength = buffer.split("x")[0].toInt()
-            markerRepeat = buffer.split("x")[1].toInt()
+            markerLength = buffer.split("x")[0].replace("(", "").toInt()
+            markerRepeat = buffer.split("x")[1].replace(")", "").toInt()
 
-//            val forRepeat = text.substring(++i, )
+            val forRepeat = text.substring(++i, i + markerLength)
+            i += markerLength - 1
+
+            (0 until markerRepeat).forEach { output += forRepeat }
+
+            buffer = ""
+        } else if (buffer.startsWith("(").not()) {
+            output += buffer
+            buffer = ""
         }
-    }
 
+        i++
+    }
+    println("${output.length} output: $output")
 }
