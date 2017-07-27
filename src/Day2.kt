@@ -63,9 +63,9 @@ public fun runDay2() {
         }
     }
 
-    for (moveset in moveArray) {
-        for (move in moveset.move) {
-            when (move) {
+    moveArray.forEach {
+        it.move.forEach {
+            when (it) {
                 'U' -> move(LEFT)
                 'D' -> move(RIGHT)
                 'L' -> move(DOWN)

@@ -47,9 +47,7 @@ public fun runDay1() {
     locationArray.add(Location(xDistance, yDistance))
     fun logLocation() {
         val location = Location(xDistance, yDistance)
-        if (locationArray.contains(location)) {
-            println("we're here before: ${location.toString()}")
-        }
+        if (locationArray.contains(location)) println("we're here before: ${location.toString()}")
         locationArray.add(location)
     }
 
@@ -67,18 +65,17 @@ public fun runDay1() {
         }
     }
 
-    for (move in moveArray) {
-
+    moveArray.forEach {
         var d = UP
 
         when (direction) {
-            UP -> if (move.direction == 'L') d = LEFT else d = RIGHT
-            RIGHT -> if (move.direction == 'L') d = UP else d = DOWN
-            DOWN -> if (move.direction == 'L') d = RIGHT else d = LEFT
-            LEFT -> if (move.direction == 'L') d = DOWN else d = UP
+            UP -> if (it.direction == 'L') d = LEFT else d = RIGHT
+            RIGHT -> if (it.direction == 'L') d = UP else d = DOWN
+            DOWN -> if (it.direction == 'L') d = RIGHT else d = LEFT
+            LEFT -> if (it.direction == 'L') d = DOWN else d = UP
         }
-        move(d, move.steps)
-        if (move.direction == 'L') {
+        move(d, it.steps)
+        if (it.direction == 'L') {
             direction--
             if (direction < 0) direction = 3
         } else {

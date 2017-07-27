@@ -13,19 +13,20 @@ public fun runDay5() {
     var ctr = 0;
 
     for (index in 0..Int.MAX_VALUE) {
-
         var success = false
 
         val hashed = HASH.md5(puzzleInput + index)
 
-        if (hashed.startsWith("00000")) try {
-            val i = Integer.parseInt(hashed.get(5) + "")
-            if (i >= 0 && i < passwordBuilder.size && passwordBuilder[i] == ' ') {
-                passwordBuilder[i] = hashed.get(6)
-                ctr++
-                success = true
+        if (hashed.startsWith("00000")) {
+            try {
+                val i = Integer.parseInt(hashed.get(5) + "")
+                if (i >= 0 && i < passwordBuilder.size && passwordBuilder[i] == ' ') {
+                    passwordBuilder[i] = hashed.get(6)
+                    ctr++
+                    success = true
+                }
+            } catch (nmf: NumberFormatException) {
             }
-        } catch (nmf: NumberFormatException) {
         }
 
         if (success) println(passwordBuilder)

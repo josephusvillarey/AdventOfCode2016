@@ -19,8 +19,8 @@ class Room(val charsStringArray: List<String>, val sectorId: Int, val checksum: 
     fun rotate(): String {
         var stringBuilder = ""
 
-        for (charString in charsStringArray) {
-            for (c in charString) {
+        charsStringArray.forEach {
+            for (c in it) {
                 stringBuilder += charArray[((charArray.indexOf(c) + sectorId) % charArray.size)]
             }
             stringBuilder += " "
@@ -29,10 +29,8 @@ class Room(val charsStringArray: List<String>, val sectorId: Int, val checksum: 
     }
 
     fun evalRoom(): Boolean {
-        for (charstring in charsStringArray) {
-            for (character in charstring) {
-                charmap.put(character, if (charmap.containsKey(character)) charmap.get(character)!!.plus(1) else 1)
-            }
+        charsStringArray.forEach {
+            it.forEach { charmap.put(it, if (charmap.containsKey(it)) charmap.get(it)!!.plus(1) else 1) }
         }
 
         val list = ArrayList<Pair<Char, Int>>()
@@ -44,19 +42,12 @@ class Room(val charsStringArray: List<String>, val sectorId: Int, val checksum: 
         }
         list.sortWith(object : Comparator<Pair<Char, Int>> {
             override fun compare(p0: Pair<Char, Int>, p1: Pair<Char, Int>): Int {
-                if (p0.second == p1.second) {
-                    return p0.first.compareTo(p1.first)
-                } else {
-                    return p1.second.compareTo(p0.second)
-                }
+                if (p0.second == p1.second) return p0.first.compareTo(p1.first) else return p1.second.compareTo(p0.second)
             }
-
         })
 
         var checksumBuilder: String = ""
-        for (index in 0..4) {
-            checksumBuilder += list[index].first
-        }
+        (0 until 5).forEach { index -> checksumBuilder += list[index].first }
         return checksumBuilder.equals(checksum)
     }
 }
@@ -66,8 +57,8 @@ public fun runDay4() {
     val day4input = File("in/day4input.txt")
 
     var sectorIdSum = 0
-    for (line in day4input.readLines()) {
-        val room = Room(line)
+    day4input.readLines().forEach {
+        val room = Room(it)
 //        if (room.evalRoom()) sectorIdSum += room.sectorId
         if (room.evalRoom()) {
             if (room.rotate().contains("northpole"))

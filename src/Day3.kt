@@ -40,29 +40,25 @@ public fun runDay3() {
     fun generateTriangles(lines: List<String>) {
         println("calling generate with $lines")
         var arraysArray = arrayOf(ArrayList<Int>(), ArrayList<Int>(), ArrayList<Int>())
-        for (stringline in lines) {
-            var lineArray = stringline.trim().replace("\\s+".toRegex(), " ").split(" ")
+        lines.forEach {
+            var lineArray = it.trim().replace("\\s+".toRegex(), " ").split(" ")
             var counter = 0
-            for (array in arraysArray) {
-                array.add(Integer.parseInt(lineArray[counter++]))
-            }
+            arraysArray.forEach { it.add(Integer.parseInt(lineArray[counter++])) }
         }
 
-        for (array in arraysArray) {
-            val triangle = Triangle(array)
+        arraysArray.forEach {
+            val triangle = Triangle(it)
             println(triangle)
-            if (triangle.isValidTriangle()) {
-                validTriangleCount++
-            }
+            if (triangle.isValidTriangle()) validTriangleCount++
         }
     }
 
-    for (line in day3Input.readLines()) {
-        println(line)
+    day3Input.readLines().forEach {
+        println(it)
         when (count) {
-            2 -> firstLineHolder = line
-            1 -> secondLineHolder = line
-            0 -> generateTriangles(listOf(firstLineHolder, secondLineHolder, line))
+            2 -> firstLineHolder = it
+            1 -> secondLineHolder = it
+            0 -> generateTriangles(listOf(firstLineHolder, secondLineHolder, it))
         }
         count--
         if (count < 0) count = 2
