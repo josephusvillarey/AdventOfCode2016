@@ -51,10 +51,10 @@ public fun runDay1() {
         locationArray.add(location)
     }
 
-    fun move(direction: Int, steps: Int) {
+    fun Int.move(steps: Int) {
         var stepsCtr = steps
         while (stepsCtr > 0) {
-            when (direction) {
+            when (this) {
                 0 -> yDistance++
                 1 -> xDistance++
                 2 -> yDistance--
@@ -74,7 +74,7 @@ public fun runDay1() {
             DOWN -> if (it.direction == 'L') d = RIGHT else d = LEFT
             LEFT -> if (it.direction == 'L') d = DOWN else d = UP
         }
-        move(d, it.steps)
+        d.move(it.steps)
         if (it.direction == 'L') {
             direction--
             if (direction < 0) direction = 3
